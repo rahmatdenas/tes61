@@ -106,7 +106,7 @@ function tentukanKategoriKueri(inputTxt) {
   if (inputTxt.includes('Q3199141') || inputTxt.includes('Q3191695')) return 'wilayah';
   
   // Daftar Q-ID Entitas Alam & Peristiwa
-  const kelompokAlam = ['Q8502', 'Q35509', 'Q23442', 'Q34038', 'Q23397', 'Q204324', 'Q159954', 'Q7944', 'Q179049'];
+  const kelompokAlam = ['Q179049', 'Q8502', 'Q35509', 'Q23442', 'Q34038', 'Q23397', 'Q204324', 'Q159954', 'Q7944'];
   let isAlam = kelompokAlam.some(qid => inputTxt.includes(qid));
   if (isAlam) return 'alam';
   
