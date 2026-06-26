@@ -184,7 +184,12 @@ function initMap() {
   // 3. Tombol Layer otomatis akan ditambahkan di bawah teks atribusi
   L.control.layers(baseMaps, null, {position: 'topleft'}).addTo(Map);
   L.control.zoom({ position: 'bottomright' }).addTo(Map);
-  L.control.locate({ position: 'bottomright', showCompass: false, strings: { title: "Tunjukkan lokasi saya" } }).addTo(Map);
+L.control.locate({ 
+    position: 'bottomright', 
+    showCompass: false, 
+    strings: { title: "Tunjukkan lokasi saya" },
+    icon: 'ikon-gps-custom' // Kita perintahkan untuk memanggil kelas CSS ini
+  }).addTo(Map);
 
   let powered = L.control({ position: 'bottomleft' });
   powered.onAdd = function(Map) {
