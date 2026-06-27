@@ -81,13 +81,14 @@ const KUMPULAN_KUERI_0 = {
   'fiksi': `SELECT DISTINCT ?siteQid ?siteLabel ?provinsiQid ?provinsiLabel ?p131LokasiLabel ?tahunBerdiriMentah ?tahunPresisi
 WHERE {
   VALUES ?jenis {<PLACEHOLDER_JENIS>} 
-
+{
   <PLACEHOLDER_WILAYAH_1>
   
   ?site wdt:P31 ?jenis ;
         wdt:P840  ?p131Lokasi .
   
   ?p131Lokasi wdt:P131* ?provinsi .
+  }
       <PLACEHOLDER_UNION_EKSTRA>
   OPTIONAL { 
     ?site p:P571 ?inceptionStmt .
@@ -105,13 +106,14 @@ WHERE {
 'tokoh': `SELECT DISTINCT ?siteQid ?siteLabel ?provinsiQid ?provinsiLabel ?p131LokasiLabel ?tahunBerdiriMentah ?tahunPresisi
 WHERE {
   VALUES ?jenis {<PLACEHOLDER_JENIS> } 
-
+{
   <PLACEHOLDER_WILAYAH_1>
   
   ?site wdt:P31 ?jenis ;
         wdt:P19  ?lahir .
   
   ?lahir wdt:P131* ?provinsi .
+  }
       <PLACEHOLDER_UNION_EKSTRA>
   OPTIONAL { 
     ?site p:P571 ?inceptionStmt .
@@ -128,13 +130,14 @@ WHERE {
 'bahasa': `SELECT DISTINCT ?siteQid ?siteLabel ?provinsiQid ?provinsiLabel ?p131LokasiLabel ?tahunBerdiriMentah ?tahunPresisi
 WHERE {
   VALUES ?jenis {<PLACEHOLDER_JENIS> } 
-
+{
   <PLACEHOLDER_WILAYAH_1>
   
   ?site wdt:P31 ?jenis ;
         wdt:P2341 ?berasaldari .
   
   ?berasaldari wdt:P131* ?provinsi .
+  }
       <PLACEHOLDER_UNION_EKSTRA>
   OPTIONAL { 
     ?site p:P571 ?inceptionStmt .
@@ -152,13 +155,14 @@ WHERE {
 'kuliner': `SELECT DISTINCT ?siteQid ?siteLabel ?provinsiQid ?provinsiLabel ?p131LokasiLabel ?tahunBerdiriMentah ?tahunPresisi
 WHERE {
   VALUES ?jenis { <PLACEHOLDER_JENIS> } 
-
+{
   <PLACEHOLDER_WILAYAH_1>
   
   ?site wdt:P31 ?jenis ;
         wdt:P276 ?p131Lokasi .
   
   ?p131Lokasi wdt:P131* ?provinsi .
+  }
       <PLACEHOLDER_UNION_EKSTRA>
   OPTIONAL { 
     ?site p:P571 ?inceptionStmt .
