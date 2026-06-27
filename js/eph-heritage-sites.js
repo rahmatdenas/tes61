@@ -127,8 +127,6 @@ function populateProvinceTypesData() {
   let provInput = document.getElementById('provinsi-input').value;
   
   currentKategoriUtama = tentukanKategoriKueri(inputTxt);
-  
-  // === MENGGUNAKAN TEMPLAT UNIVERSAL ===
   let baseQuery = KUMPULAN_KUERI_0['universal'];
   
   const petaProperti = {
@@ -142,17 +140,27 @@ function populateProvinceTypesData() {
     'kuliner': 'P276'
   };
   
-let propLokasi = petaProperti[currentKategoriUtama] || 'P131'; 
+  let propLokasi = petaProperti[currentKategoriUtama] || 'P131'; 
   
   let wilayahClause1 = '';
   let unionEkstra = ''; 
   let hierarkiLokasi = '?p131Lokasi wdt:P131* ?provinsi .'; 
+  
+  // === VARIABEL BUKA-TUTUP KURUNG ===
+  let kurungBuka = '';
+  let kurungTutup = '';
 
   if (provInput === 'all') {
     wilayahClause1 = '?provinsi wdt:P31 wd:Q5098 .';
+    // Karena tidak ada UNION, kurung biarkan kosong!
   } else {
     wilayahClause1 = `?provinsi wdt:P131 ${provInput}.`;
     let wilayahClause2 = `BIND(${provInput} AS ?provinsi) BIND(${provInput} AS ?p131Lokasi)`; 
+    
+    // Karena ada UNION, kita wajib memanggil kurung kurawal pembungkus
+    kurungBuka = '{';
+    kurungTutup = '}';
+    
     unionEkstra = `
     UNION {
       ${wilayahClause2}
@@ -161,15 +169,16 @@ let propLokasi = petaProperti[currentKategoriUtama] || 'P131';
     }`;
   }
   
-  // 6. Suntikkan semua parameter ke dalam Templat Universal
   let dynamicQuery = baseQuery
+    .replace(/<PLACEHOLDER_KURUNG_BUKA>/g, kurungBuka)     // Eksekusi Buka Kurung
+    .replace(/<PLACEHOLDER_KURUNG_TUTUP>/g, kurungTutup)   // Eksekusi Tutup Kurung
     .replace(/<PLACEHOLDER_WILAYAH_1>/g, wilayahClause1)
     .replace(/<PLACEHOLDER_PROP_LOKASI>/g, propLokasi)
     .replace(/<PLACEHOLDER_HIERARKI_LOKASI>/g, hierarkiLokasi)
     .replace(/<PLACEHOLDER_UNION_EKSTRA>/g, unionEkstra) 
     .replace(/<PLACEHOLDER_JENIS>/g, inputTxt);
 
-  console.log("Kueri 0 (Tipe & Provinsi) yang dikirim:", dynamicQuery); 
+  console.log("Kueri 0 (Tipe & Provinsi) yang dikirim:", dynamicQuery);
 
   return queryWdqsThenProcess(
     dynamicQuery,
