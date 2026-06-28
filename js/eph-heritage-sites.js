@@ -132,9 +132,6 @@ const kelompokAlam = [
   // Regex \b digunakan agar Q8502 tidak terpanggil di dalam teks Q850299 dll
   let isAlam = kelompokAlam.some(qid => new RegExp(`\\b${qid}\\b`).test(teks));
   if (isAlam) return 'alam';
-  // Tambahkan deteksi Artefak & Kuliner agar tidak jatuh ke 'general' (P131)
-  if (teks.includes('Q3305213') || teks.includes('Q1641020') || teks.includes('Q87167') || teks.includes('Q220659')) return 'artefak';
-  if (teks.includes('Q19861951')) return 'kuliner';
   return 'general';
 }
 
