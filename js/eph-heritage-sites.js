@@ -299,15 +299,16 @@ if (provInput === 'all') {
 
   return queryWdqsThenProcess(
     dynamicQuery,
-    function(result) {
-      let qid = result.siteQid.value;
+function(result) {
+      // Menggunakan variabel JSON singkatan hasil kueri baru
+      let qid = result.SQ.value;
       if (!(qid in Records)) Records[qid] = new Record(false);
       let record = Records[qid];
 
-      record.title = ('siteLabel' in result && result.siteLabel.value) ? result.siteLabel.value : '[ERROR: No title]';
+      record.title = ('sLabel' in result && result.sLabel.value) ? result.sLabel.value : '[ERROR: No title]';
 
-      let provQid = result.provinsiQid ? result.provinsiQid.value : 'Q_UNKNOWN';
-      let provLabel = result.provinsiLabel ? result.provinsiLabel.value : 'Tidak dalam Provinsi';
+      let provQid = result.PQ ? result.PQ.value : 'Q_UNKNOWN';
+      let provLabel = result.pLabel ? result.pLabel.value : 'Tidak dalam Provinsi';
 
       if (!(provQid in ProvinceIndex)) {
         ProvinceIndex[provQid] = new ProvinceIndexEntry();
@@ -317,12 +318,12 @@ if (provInput === 'all') {
       
       record.areaTags.add(provQid);
       
-      if ('p131LokasiLabel' in result && result.p131LokasiLabel.value) record.lokasiSpesifik = result.p131LokasiLabel.value;
+      if ('lLabel' in result && result.lLabel.value) record.lokasiSpesifik = result.lLabel.value;
       
-      if (!record.tahunBerdiri && result.tahunBerdiriMentah && result.tahunBerdiriMentah.value) {
-        let precision = result.tahunPresisi ? result.tahunPresisi.value : 9;
-        record.tahunBerdiri = formatWikidataDate(result.tahunBerdiriMentah.value, precision);        
-        record.rawTahunBerdiri = result.tahunBerdiriMentah.value.replace(/^[+-]/, '');
+      if (!record.tahunBerdiri && result.tM && result.tM.value) {
+        let precision = result.tP ? result.tP.value : 9;
+        record.tahunBerdiri = formatWikidataDate(result.tM.value, precision);        
+        record.rawTahunBerdiri = result.tM.value.replace(/^[+-]/, '');
       }
     },
     function() {
